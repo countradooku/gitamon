@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "nuxt dev --host 0.0.0.0",
     "build": "nuxt build",
+    "start": "node .output/server/index.mjs",
     "preview": "nuxt preview --host 0.0.0.0",
     "prepare": "nuxt prepare"
+  },
+  "engines": {
+    "node": ">=24.11.0"
   },
   "dependencies": {
     "html-to-image": "^1.11.13",
