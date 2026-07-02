@@ -1,0 +1,21 @@
+{
+  "name": "gitamon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev --host 0.0.0.0",
+    "build": "nuxt build",
+    "preview": "nuxt preview --host 0.0.0.0",
+    "prepare": "nuxt prepare"
+  },
+  "dependencies": {
+    "html-to-image": "^1.11.13",
+    "lucide-vue-next": "^0.468.0",
+    "nuxt": "^4.4.8",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

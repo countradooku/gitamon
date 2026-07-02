@@ -1,0 +1,10 @@
+node_modules
+dist
+.nuxt
+.output
+.DS_Store
+*.local
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+bun.lock
