@@ -91,6 +91,20 @@ img {
     var(--green-950);
 }
 
+.app-shell::before {
+  position: fixed;
+  inset: -20% -10%;
+  z-index: 0;
+  pointer-events: none;
+  content: '';
+  background:
+    linear-gradient(115deg, transparent 0 42%, rgba(255, 255, 255, 0.12) 47%, transparent 52% 100%),
+    repeating-linear-gradient(115deg, transparent 0 18px, rgba(255, 255, 255, 0.035) 18px 19px, transparent 19px 38px);
+  opacity: 0.8;
+  transform: translate3d(-18%, 0, 0);
+  animation: stadiumSweep 11s linear infinite;
+}
+
 .app-shell::after {
   position: fixed;
   inset: 0;
@@ -102,6 +116,100 @@ img {
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: 42px 42px;
   mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 78%, transparent 100%);
+}
+
+.motion-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.motion-field span {
+  position: absolute;
+  left: var(--shard-left, 12%);
+  top: var(--shard-top, 18%);
+  width: var(--shard-width, 36px);
+  height: 9px;
+  border: 1px solid color-mix(in srgb, var(--hero-accent, #ffd84d) 48%, transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--hero-accent, #ffd84d) 34%, transparent), transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--hero-secondary, #2f6cff) 28%, transparent);
+  opacity: 0.55;
+  transform: rotate(var(--shard-tilt, -18deg));
+  animation: shardDrift var(--shard-speed, 8s) linear infinite;
+  animation-delay: var(--shard-delay, 0s);
+}
+
+.motion-field span:nth-child(1) {
+  --shard-left: 8%;
+  --shard-top: 26%;
+  --shard-width: 46px;
+  --shard-tilt: -14deg;
+  --shard-speed: 8.8s;
+}
+
+.motion-field span:nth-child(2) {
+  --shard-left: 22%;
+  --shard-top: 78%;
+  --shard-width: 28px;
+  --shard-tilt: 18deg;
+  --shard-speed: 10.4s;
+  --shard-delay: -3s;
+}
+
+.motion-field span:nth-child(3) {
+  --shard-left: 43%;
+  --shard-top: 13%;
+  --shard-width: 40px;
+  --shard-tilt: 8deg;
+  --shard-speed: 9.2s;
+  --shard-delay: -5s;
+}
+
+.motion-field span:nth-child(4) {
+  --shard-left: 71%;
+  --shard-top: 68%;
+  --shard-width: 52px;
+  --shard-tilt: -25deg;
+  --shard-speed: 11s;
+  --shard-delay: -7s;
+}
+
+.motion-field span:nth-child(5) {
+  --shard-left: 84%;
+  --shard-top: 22%;
+  --shard-width: 34px;
+  --shard-tilt: 24deg;
+  --shard-speed: 7.8s;
+  --shard-delay: -1s;
+}
+
+.motion-field span:nth-child(6) {
+  --shard-left: 58%;
+  --shard-top: 90%;
+  --shard-width: 44px;
+  --shard-tilt: -6deg;
+  --shard-speed: 9.8s;
+  --shard-delay: -4s;
+}
+
+.motion-field span:nth-child(7) {
+  --shard-left: 32%;
+  --shard-top: 45%;
+  --shard-width: 22px;
+  --shard-tilt: -31deg;
+  --shard-speed: 8.2s;
+  --shard-delay: -6s;
+}
+
+.motion-field span:nth-child(8) {
+  --shard-left: 93%;
+  --shard-top: 84%;
+  --shard-width: 30px;
+  --shard-tilt: 12deg;
+  --shard-speed: 12s;
+  --shard-delay: -8s;
 }
 
 .app-shell > * {
@@ -151,6 +259,10 @@ img {
   border: 2px solid var(--black);
   border-radius: 7px;
   box-shadow: 3px 3px 0 var(--black);
+}
+
+.brand-mark svg {
+  animation: markSpark 2.7s ease-in-out infinite;
 }
 
 .topbar-actions,
@@ -263,6 +375,7 @@ img {
 
 .hero-copy {
   max-width: 600px;
+  animation: heroCopyIn 720ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }
 
 .eyebrow,
@@ -304,6 +417,7 @@ h1 {
   font-weight: 700;
   text-transform: uppercase;
   text-shadow: 6px 6px 0 var(--black);
+  animation: headlineFlash 920ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-copy > p {
@@ -383,6 +497,154 @@ a:focus-visible {
   border-color: rgba(255, 255, 255, 0.14);
 }
 
+.home-card-runway {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(104px, 1fr));
+  gap: 12px;
+  max-width: 620px;
+  margin: 16px 0 22px;
+  perspective: 1000px;
+}
+
+.showcase-card {
+  --mini-primary: var(--gold);
+  --mini-secondary: var(--mint);
+  --mini-ink: var(--black);
+  --mini-tilt: 0deg;
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 174px;
+  padding: 10px;
+  overflow: hidden;
+  color: var(--black);
+  background:
+    radial-gradient(circle at 20% 16%, color-mix(in srgb, var(--mini-primary) 60%, white), transparent 32%),
+    radial-gradient(circle at 80% 52%, color-mix(in srgb, var(--mini-secondary) 48%, white), transparent 38%),
+    linear-gradient(145deg, color-mix(in srgb, var(--mini-primary) 30%, var(--paper-bright)), color-mix(in srgb, var(--mini-secondary) 22%, var(--paper)));
+  border: 3px solid var(--black);
+  border-radius: 8px;
+  box-shadow: 7px 7px 0 var(--black), 0 0 32px color-mix(in srgb, var(--mini-primary) 24%, transparent);
+  transform: rotate(var(--mini-tilt));
+  transform-style: preserve-3d;
+  animation:
+    miniCardDeal 680ms cubic-bezier(0.16, 1, 0.3, 1) both,
+    miniCardFloat 4.8s ease-in-out infinite;
+  animation-delay: var(--mini-delay, 0ms), calc(760ms + var(--mini-float-delay, 0s));
+}
+
+.showcase-card::before,
+.showcase-card::after,
+.showcase-foil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+}
+
+.showcase-card::before {
+  z-index: 1;
+  border: 2px solid color-mix(in srgb, var(--mini-primary) 62%, rgba(0, 0, 0, 0.5));
+  margin: 6px;
+  border-radius: 5px;
+}
+
+.showcase-card::after {
+  z-index: 2;
+  background: linear-gradient(110deg, transparent 0 34%, rgba(255, 255, 255, 0.6) 43%, transparent 52% 100%);
+  transform: translateX(-130%);
+  animation: miniCardShine 3.6s ease-in-out infinite;
+  animation-delay: calc(1s + var(--mini-delay, 0ms));
+}
+
+.showcase-foil {
+  z-index: 0;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 9px),
+    conic-gradient(from 210deg at 50% 42%, var(--mini-primary), var(--mini-secondary), var(--gold), var(--mini-primary));
+  mix-blend-mode: screen;
+  opacity: 0.38;
+  animation: foilTurn 7s linear infinite;
+}
+
+.showcase-topline,
+.showcase-score,
+.showcase-portrait,
+.showcase-card > strong,
+.showcase-card > small {
+  position: relative;
+  z-index: 3;
+}
+
+.showcase-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.showcase-score {
+  justify-self: start;
+  margin-top: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.1rem;
+  line-height: 0.86;
+  font-weight: 800;
+  text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.45);
+}
+
+.showcase-portrait {
+  display: grid;
+  width: min(78px, 72%);
+  aspect-ratio: 1;
+  place-items: center;
+  justify-self: center;
+  margin: -4px 0 7px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.72), transparent 62%),
+    conic-gradient(from 90deg, var(--mini-primary), var(--mini-secondary), var(--gold), var(--mini-primary));
+  border: 3px solid var(--black);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
+  animation: portraitPulse 3.6s ease-in-out infinite;
+}
+
+.showcase-portrait img {
+  width: 78%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 3px solid var(--black);
+  border-radius: 50%;
+  background: var(--paper-bright);
+}
+
+.showcase-card > strong,
+.showcase-card > small {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.showcase-card > strong {
+  align-self: end;
+  font-size: 0.92rem;
+  line-height: 0.95;
+}
+
+.showcase-card > small {
+  margin-top: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: color-mix(in srgb, var(--mini-ink) 78%, var(--black));
+}
+
 .hero-facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -434,6 +696,124 @@ a:focus-visible {
   min-height: 640px;
   place-items: center;
   perspective: 1200px;
+  animation: stageIn 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.summon-ring,
+.summon-shards,
+.summon-overlay {
+  position: absolute;
+  pointer-events: none;
+}
+
+.summon-ring {
+  width: min(78vw, 520px);
+  aspect-ratio: 1;
+  border: 2px solid color-mix(in srgb, var(--hero-accent, #ffd84d) 36%, transparent);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 38px color-mix(in srgb, var(--hero-secondary, #2f6cff) 18%, transparent),
+    0 0 54px color-mix(in srgb, var(--hero-accent, #ffd84d) 24%, transparent);
+  opacity: 0.66;
+  transform: rotateX(72deg) rotateZ(0deg);
+  animation: summonRing 8s linear infinite;
+}
+
+.summon-ring::before,
+.summon-ring::after {
+  position: absolute;
+  inset: 11%;
+  content: '';
+  border: 1px dashed color-mix(in srgb, var(--hero-secondary, #2f6cff) 45%, transparent);
+  border-radius: inherit;
+}
+
+.summon-ring::after {
+  inset: 24%;
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--hero-accent, #ffd84d) 28%, transparent);
+}
+
+.summon-shards {
+  inset: 8% 4%;
+  z-index: 1;
+}
+
+.summon-shards span {
+  position: absolute;
+  width: 42px;
+  height: 12px;
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--hero-accent, #ffd84d) 72%, white), transparent);
+  clip-path: polygon(10% 0, 100% 0, 88% 100%, 0 100%);
+  opacity: 0.72;
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--hero-accent, #ffd84d) 52%, transparent));
+  animation: orbitShard 5.8s ease-in-out infinite;
+  animation-delay: var(--orbit-delay, 0s);
+}
+
+.summon-shards span:nth-child(1) {
+  top: 14%;
+  left: 12%;
+  --orbit-delay: -0.4s;
+}
+
+.summon-shards span:nth-child(2) {
+  top: 20%;
+  right: 12%;
+  --orbit-delay: -1.2s;
+}
+
+.summon-shards span:nth-child(3) {
+  top: 50%;
+  left: 2%;
+  --orbit-delay: -2s;
+}
+
+.summon-shards span:nth-child(4) {
+  right: 1%;
+  bottom: 34%;
+  --orbit-delay: -2.8s;
+}
+
+.summon-shards span:nth-child(5) {
+  bottom: 14%;
+  left: 20%;
+  --orbit-delay: -3.6s;
+}
+
+.summon-shards span:nth-child(6) {
+  right: 24%;
+  bottom: 10%;
+  --orbit-delay: -4.4s;
+}
+
+.summon-overlay {
+  z-index: 4;
+  display: grid;
+  width: min(78vw, 440px);
+  aspect-ratio: 63 / 88;
+  place-items: center;
+  border-radius: 8px;
+}
+
+.summon-overlay span {
+  position: absolute;
+  width: 64%;
+  height: 10px;
+  background: linear-gradient(90deg, transparent, var(--hero-accent), var(--hero-secondary), transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--hero-accent) 46%, transparent);
+  animation: summonScan 820ms ease-in-out infinite;
+}
+
+.summon-overlay span:nth-child(2) {
+  animation-delay: 140ms;
+  transform: translateY(-72px);
+}
+
+.summon-overlay span:nth-child(3) {
+  animation-delay: 280ms;
+  transform: translateY(72px);
 }
 
 .stack-card {
@@ -444,6 +824,7 @@ a:focus-visible {
   border-radius: 8px;
   box-shadow: 12px 12px 0 var(--black);
   opacity: 0.78;
+  animation: stackHover 5.8s ease-in-out infinite;
 }
 
 .stack-card-one {
@@ -455,6 +836,7 @@ a:focus-visible {
       color-mix(in srgb, var(--hero-secondary, #2f6cff) 62%, white)
     ),
     var(--paper);
+  animation-delay: -1.3s;
 }
 
 .stack-card-two {
@@ -466,6 +848,7 @@ a:focus-visible {
       color-mix(in srgb, var(--hero-accent, #ffd84d) 64%, var(--mint))
     ),
     var(--paper);
+  animation-delay: -3s;
 }
 
 .gitamon-card {
@@ -498,6 +881,10 @@ a:focus-visible {
   border-radius: 8px;
   box-shadow: 13px 13px 0 var(--black), 0 0 78px var(--card-glow);
   transform: rotate(-1.5deg);
+  animation:
+    cardReveal 820ms cubic-bezier(0.16, 1, 0.3, 1) both,
+    cardIdle 6.4s ease-in-out 900ms infinite;
+  will-change: transform;
 }
 
 .gitamon-card::before {
@@ -531,6 +918,8 @@ a:focus-visible {
     radial-gradient(circle at 32% 72%, color-mix(in srgb, var(--card-secondary) 34%, transparent), transparent 29%);
   mix-blend-mode: screen;
   opacity: 0.62;
+  background-size: 180% 180%, auto, auto, auto;
+  animation: foilSweep 3.8s ease-in-out infinite;
 }
 
 .card-header,
@@ -588,6 +977,7 @@ a:focus-visible {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
   font-weight: 800;
+  animation: orbPulse 2.6s ease-in-out infinite;
 }
 
 .portrait-frame {
@@ -641,6 +1031,7 @@ a:focus-visible {
   border-radius: 50%;
   opacity: 0.78;
   filter: saturate(1.15);
+  animation: portraitAura 6s linear infinite;
 }
 
 .portrait-art img {
@@ -658,6 +1049,7 @@ a:focus-visible {
   border: 4px solid var(--black);
   border-radius: 50%;
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.78), 0 0 0 6px color-mix(in srgb, var(--card-primary) 36%, white);
+  animation: portraitPop 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .portrait-meta {
@@ -701,6 +1093,8 @@ a:focus-visible {
   margin-left: auto;
   color: var(--card-primary-ink);
   background: linear-gradient(90deg, var(--card-primary), var(--card-secondary));
+  background-size: 180% 100%;
+  animation: rarityFlow 2.8s ease-in-out infinite;
 }
 
 .ability-box,
@@ -1022,6 +1416,8 @@ a:focus-visible {
   height: 100%;
   background: linear-gradient(90deg, var(--gold), var(--hero-accent), var(--hero-secondary));
   border-radius: inherit;
+  transform-origin: left center;
+  animation: meterGrow 780ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .language-bars > div {
@@ -1072,6 +1468,24 @@ a:focus-visible {
   flex-direction: column;
   padding: 16px;
   text-decoration: none;
+  animation: panelRise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--repo-delay, 0) * 90ms);
+}
+
+.repo-card:nth-child(1) {
+  --repo-delay: 1;
+}
+
+.repo-card:nth-child(2) {
+  --repo-delay: 2;
+}
+
+.repo-card:nth-child(3) {
+  --repo-delay: 3;
+}
+
+.repo-card:nth-child(4) {
+  --repo-delay: 4;
 }
 
 .repo-card > span {
@@ -1136,6 +1550,57 @@ a:focus-visible {
   font-weight: 800;
 }
 
+.card-swap-enter-active,
+.card-swap-leave-active {
+  transition: opacity 260ms ease, filter 260ms ease, transform 260ms ease;
+}
+
+.card-swap-enter-from {
+  opacity: 0;
+  filter: saturate(1.6) brightness(1.3) blur(8px);
+  transform: translateY(38px) rotate(8deg) scale(0.86);
+}
+
+.card-swap-leave-to {
+  opacity: 0;
+  filter: saturate(1.4) brightness(0.8) blur(8px);
+  transform: translateY(-26px) rotate(-8deg) scale(0.9);
+}
+
+.report-grid .panel,
+.score-banner,
+.share-grid {
+  animation: panelRise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.report-column .panel:nth-child(1) {
+  animation-delay: 90ms;
+}
+
+.report-column .panel:nth-child(2) {
+  animation-delay: 170ms;
+}
+
+.report-column .panel:nth-child(3) {
+  animation-delay: 250ms;
+}
+
+.score-banner {
+  animation-delay: 120ms;
+}
+
+.share-grid {
+  animation-delay: 200ms;
+}
+
+.action-column .panel:nth-of-type(1) {
+  animation-delay: 280ms;
+}
+
+.action-column .panel:nth-of-type(2) {
+  animation-delay: 360ms;
+}
+
 .spin {
   animation: spin 0.9s linear infinite;
 }
@@ -1146,12 +1611,299 @@ a:focus-visible {
   }
 }
 
+@keyframes stadiumSweep {
+  0% {
+    transform: translate3d(-22%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(22%, 0, 0);
+  }
+}
+
+@keyframes shardDrift {
+  0% {
+    opacity: 0;
+    transform: translate3d(-12vw, 8vh, 0) rotate(var(--shard-tilt, -18deg));
+  }
+
+  15%,
+  72% {
+    opacity: 0.56;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(22vw, -18vh, 0) rotate(calc(var(--shard-tilt, -18deg) + 80deg));
+  }
+}
+
+@keyframes markSpark {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  48% {
+    transform: scale(1.14) rotate(11deg);
+  }
+}
+
+@keyframes heroCopyIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes headlineFlash {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(20px) skewX(-7deg);
+  }
+
+  62% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(-4px) skewX(0);
+    text-shadow: 8px 8px 0 var(--black), 0 0 32px color-mix(in srgb, var(--hero-accent) 36%, transparent);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes miniCardDeal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 42px, -120px) rotate(calc(var(--mini-tilt) - 18deg)) scale(0.72);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(var(--mini-tilt)) scale(1);
+  }
+}
+
+@keyframes miniCardFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--mini-tilt));
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(var(--mini-tilt)) scale(1.02);
+  }
+}
+
+@keyframes miniCardShine {
+  0%,
+  48% {
+    transform: translateX(-130%);
+  }
+
+  70%,
+  100% {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes foilTurn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes portraitPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes stageIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes summonRing {
+  to {
+    transform: rotateX(72deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbitShard {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translate3d(0, 0, 0) rotate(-16deg);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: translate3d(14px, -18px, 80px) rotate(18deg);
+  }
+}
+
+@keyframes summonScan {
+  0% {
+    opacity: 0;
+    transform: translateY(-116px) scaleX(0.5);
+  }
+
+  28%,
+  72% {
+    opacity: 0.92;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(116px) scaleX(1.12);
+  }
+}
+
+@keyframes stackHover {
+  0%,
+  100% {
+    filter: saturate(1);
+  }
+
+  50% {
+    filter: saturate(1.25) brightness(1.08);
+  }
+}
+
+@keyframes cardReveal {
+  0% {
+    opacity: 0;
+    filter: brightness(1.8) saturate(1.8) blur(12px);
+    transform: translateY(70px) rotate(14deg) scale(0.74);
+  }
+
+  58% {
+    opacity: 1;
+    filter: brightness(1.35) saturate(1.45) blur(0);
+    transform: translateY(-10px) rotate(-3.8deg) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    filter: brightness(1) saturate(1);
+    transform: translateY(0) rotate(-1.5deg) scale(1);
+  }
+}
+
+@keyframes cardIdle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+
+  50% {
+    transform: translateY(-9px) rotate(-0.4deg);
+  }
+}
+
+@keyframes foilSweep {
+  0%,
+  100% {
+    background-position: -120% 0, 0 0, 0 0, 0 0;
+    opacity: 0.48;
+  }
+
+  50% {
+    background-position: 120% 0, 0 0, 0 0, 0 0;
+    opacity: 0.76;
+  }
+}
+
+@keyframes orbPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes portraitAura {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes portraitPop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.78);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes rarityFlow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes meterGrow {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes panelRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (hover: hover) {
   .primary-button,
   .tool-button,
   .icon-button,
   .pill-link,
   .sample-link,
+  .showcase-card,
   .repo-card {
     transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease;
   }
@@ -1160,6 +1912,17 @@ a:focus-visible {
   .repo-card:hover {
     transform: translate(-2px, -2px);
     box-shadow: 10px 10px 0 var(--black);
+  }
+
+  .showcase-card:hover {
+    animation-play-state: paused;
+    transform: translateY(-11px) rotate(0deg) scale(1.04);
+    box-shadow: 10px 10px 0 var(--black), 0 0 46px color-mix(in srgb, var(--mini-primary) 36%, transparent);
+  }
+
+  .gitamon-card:hover {
+    animation-play-state: paused;
+    transform: translateY(-8px) rotate(-0.7deg) scale(1.01);
   }
 
   .tool-button:hover,
@@ -1196,6 +1959,14 @@ a:focus-visible {
 
   .repo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-card-runway {
+    grid-template-columns: repeat(4, minmax(92px, 1fr));
+  }
+
+  .showcase-card {
+    min-height: 158px;
   }
 }
 
@@ -1234,6 +2005,15 @@ a:focus-visible {
   .repo-grid,
   .trait-list {
     grid-template-columns: 1fr;
+  }
+
+  .home-card-runway {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 100%;
+  }
+
+  .showcase-card {
+    min-height: 168px;
   }
 
   .hero-stage {
@@ -1311,5 +2091,24 @@ a:focus-visible {
     width: 100%;
     margin-left: 0;
     justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+  }
+
+  .motion-field,
+  .summon-ring,
+  .summon-shards,
+  .summon-overlay {
+    display: none;
   }
 }
