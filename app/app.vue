@@ -19,6 +19,12 @@ import {
 } from 'lucide-vue-next';
 import { cleanHandle, formatCompact, type GitHubRepo, type GitamonCard, type GitamonProfileResponse } from '~~/shared/gitamon';
 
+type RepositorySummary = {
+  fullName: string;
+  url: string;
+  stars: number;
+};
+
 const route = useRoute();
 const router = useRouter();
 const initialHandle = cleanHandle(getQueryHandle(route.query.u) || 'yyx990803') || 'yyx990803';
@@ -54,6 +60,13 @@ const cardTheme = computed((): Record<string, string> => {
     '--card-glow': card.value.type.glow,
   };
 });
+
+const { data: repository } = await useFetch<RepositorySummary>('/api/repository', {
+  key: 'gitamon-repository-summary',
+});
+
+const repositoryUrl = computed(() => repository.value?.url ?? 'https://github.com/countradooku/gitamon');
+const repositoryStars = computed(() => formatCompact(repository.value?.stars ?? 0));
 
 const { data: initialProfile, error: initialError } = await useFetch<GitamonProfileResponse>(
   `/api/github/${encodeURIComponent(initialHandle)}`,
@@ -259,9 +272,13 @@ function getApiErrorMessage(caught: unknown): string {
             Reach uses forks and top-repo pull, Lore uses account age, and Focus rewards current public activity.
           </p>
         </div>
-        <a class="pill-link" href="https://github.com" target="_blank" rel="noreferrer">
+        <a class="pill-link github-data-link" :href="repositoryUrl" target="_blank" rel="noreferrer">
           <Github :size="17" />
           <span>GitHub data</span>
+          <strong class="repo-star-count">
+            <Star :size="13" />
+            {{ repositoryStars }}
+          </strong>
         </a>
       </div>
     </header>

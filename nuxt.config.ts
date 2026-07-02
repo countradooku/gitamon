@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   css: ['~/assets/styles.css'],
   runtimeConfig: {
     githubToken: process.env.NUXT_GITHUB_TOKEN || process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '',
+    public: {
+      repositoryOwner: 'countradooku',
+      repositoryName: 'gitamon',
+      repositoryUrl: 'https://github.com/countradooku/gitamon',
+    },
   },
   app: {
     head: {

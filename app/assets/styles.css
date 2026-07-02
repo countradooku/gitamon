@@ -182,6 +182,26 @@ img {
   backdrop-filter: blur(12px);
 }
 
+.github-data-link {
+  padding-right: 8px;
+}
+
+.repo-star-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 26px;
+  padding: 3px 7px;
+  color: var(--black);
+  background: var(--gold);
+  border: 2px solid var(--black);
+  border-radius: 7px;
+  box-shadow: 2px 2px 0 var(--black);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
 .icon-button {
   width: 42px;
   padding: 0;
